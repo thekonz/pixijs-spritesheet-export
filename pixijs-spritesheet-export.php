@@ -9,7 +9,7 @@ echo '#################################' . "\n\n";
 //constants
 define(
     'APP_VERSION',
-    '1.0.0'
+    'v1.0.1'
 );
 
 define(
@@ -93,11 +93,16 @@ if ('-e' == $argv[1]) {
             'frames' => array(),
         );
 
-        for ($i = $options['-s']; $i < $amount; $i++) {
+        for ($i = $options['-s'], $y = -1; $i < $amount; $i++) {
+            $x = ($i % ($imageInfo[0] / $options['-w'])) * $options['-w'];
+            if (0 === $x) {
+                $y++;
+            }
+
             $json['frames'][] = array(
                 'frame' => array(
-                    'x' => ($i % ($imageInfo[0] / $options['-w'])) * $options['-w'],
-                    'y' => ((int) ($i * $options['-h'] / $imageInfo[1])) * $options['-h'],
+                    'x' => $x,
+                    'y' => $y,
                     'w' => $options['-w'],
                     'h' => $options['-h'],
                 ),
