@@ -93,12 +93,9 @@ if ('-e' == $argv[1]) {
             'frames' => array(),
         );
 
-        for ($i = $options['-s'], $y = -1; $i < $amount; $i++) {
+        for ($i = $options['-s']; $i < $amount; $i++) {
             $x = $i % ($imageInfo[0] / $options['-w']);
-            if (0 === $x) {
-                $y++;
-            }
-
+            $y = (int) ($i / ($imageInfo[1] / $options['-h']));
             $json['frames'][] = array(
                 'frame' => array(
                     'x' => $x * $options['-w'],
